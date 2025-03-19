@@ -1,3 +1,5 @@
+import { redirect } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
@@ -5,6 +7,10 @@ export const meta: MetaFunction = () => {
     { title: "New Remix App" },
     { name: "description", content: "Welcome to Remix!" },
   ];
+};
+
+export const loader: LoaderFunction = async () => {
+  return redirect("/demo");
 };
 
 export default function Index() {

@@ -1,6 +1,29 @@
+/// <reference types="react" />
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import Sales from "~/routes/sales";
+import Marketing from "~/routes/marketing";
+import Memberships from "~/routes/memberships";
+import Products from "~/routes/products";
+import Reporting from "~/routes/reporting";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      div: HTMLAttributes<HTMLDivElement>;
+      nav: HTMLAttributes<HTMLElement>;
+      button: HTMLAttributes<HTMLButtonElement>;
+      main: HTMLAttributes<HTMLElement>;
+      h1: HTMLAttributes<HTMLHeadingElement>;
+      h3: HTMLAttributes<HTMLHeadingElement>;
+      p: HTMLAttributes<HTMLParagraphElement>;
+      ul: HTMLAttributes<HTMLUListElement>;
+      li: HTMLAttributes<HTMLLIElement>;
+      strong: HTMLAttributes<HTMLElement>;
+    }
+  }
+}
 
 export const meta: MetaFunction = () => {
   return [
@@ -10,123 +33,172 @@ export const meta: MetaFunction = () => {
 };
 
 export default function MegaMenuLayout() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("dashboard");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      // Close menu when clicking outside of menu and button
+      if (!menuRef.current?.contains(e.target as Node) && 
+          !buttonRef.current?.contains(e.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen">
       {/* Navigation bar */}
-      <nav className="bg-gray-800 text-white">
+      <nav className="bg-gray-800 text-white relative">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-start items-center h-16">
             <h1 className="text-xl font-bold">Demo App</h1>
             
             {/* Mega menu trigger */}
-            <div className="relative">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center space-x-2 hover:text-gray-300"
+            <button
+              ref={buttonRef}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex items-center space-x-2 hover:text-gray-300 pl-8"
+            >
+              <span>Menu</span>
+              <svg
+                className={`w-4 h-4 transition-transform ${isMenuOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <span>Menu</span>
-                <svg
-                  className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-
-              {/* Mega menu content */}
-              {isOpen && (
-                <div className="absolute top-full left-0 w-screen bg-white text-gray-800 shadow-lg">
-                  <div className="container mx-auto p-6">
-                    <div className="grid grid-cols-4 gap-8">
-                      {/* Sales Section */}
-                      <div>
-                        <h3 className="font-bold text-lg mb-4">Sales</h3>
-                        <ul className="space-y-2">
-                          <li>
-                            <Link to="/sales" className="hover:text-blue-600">
-                              Dashboard
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/sales/analytics" className="hover:text-blue-600">
-                              Analytics
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-
-                      {/* Reports Section */}
-                      <div>
-                        <h3 className="font-bold text-lg mb-4">Reports</h3>
-                        <ul className="space-y-2">
-                          <li>
-                            <Link to="/reports" className="hover:text-blue-600">
-                              Overview
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/reports/monthly" className="hover:text-blue-600">
-                              Monthly Reports
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-
-                      {/* Marketing Section */}
-                      <div>
-                        <h3 className="font-bold text-lg mb-4">Marketing</h3>
-                        <ul className="space-y-2">
-                          <li>
-                            <Link to="/marketing" className="hover:text-blue-600">
-                              Campaigns
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/marketing/social" className="hover:text-blue-600">
-                              Social Media
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-
-                      {/* Memberships Section */}
-                      <div>
-                        <h3 className="font-bold text-lg mb-4">Memberships</h3>
-                        <ul className="space-y-2">
-                          <li>
-                            <Link to="/memberships" className="hover:text-blue-600">
-                              Overview
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/memberships/tiers" className="hover:text-blue-600">
-                              Membership Tiers
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
           </div>
+
+          {/* Mega menu content */}
+          {isMenuOpen && (
+            <div 
+              ref={menuRef}
+              className="absolute bg-white shadow-lg rounded-lg p-6 mt-0 z-50"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800 mb-4">Sales</h2>
+                  <button
+                    onClick={() => {
+                      setActiveSection('sales');
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Sales Dashboard
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveSection('sales');
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Leaderboard
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveSection('sales');
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Widgets
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveSection('sales');
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Quick links
+                  </button>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800 mb-4">Memberships</h2>
+                  <button
+                    onClick={() => {
+                      setActiveSection('memberships');
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Memberships
+                  </button>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800 mb-4">Marketing</h2>
+                  <button
+                    onClick={() => {
+                      setActiveSection('marketing');
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Marketing
+                  </button>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800 mb-4">Reporting</h2>
+                  <button
+                    onClick={() => {
+                      setActiveSection('reporting');
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Reporting Dashboard
+                  </button>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800 mb-4">Products</h2>
+                  <button
+                    onClick={() => {
+                      setActiveSection('products');
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Products
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Main content */}
       <main className="container mx-auto p-8">
-        <h1 className="text-2xl font-bold mb-4">Mega Menu Layout Demo</h1>
-        <p>This is an example of a mega menu navigation layout.</p>
+        {activeSection === 'sales' && <Sales />}
+        {activeSection === 'marketing' && <Marketing />}
+        {activeSection === 'memberships' && <Memberships />}
+        {activeSection === 'products' && <Products />}
+        {activeSection === 'reporting' && <Reporting />}
+
+        {activeSection === 'dashboard' && (
+          <>
+            <h1 className="text-2xl font-bold mb-4">Mega Menu Layout Demo</h1>
+            <p>This is an example of a mega menu navigation layout.</p>
+          </>
+        )}
       </main>
     </div>
   );

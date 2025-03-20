@@ -80,89 +80,98 @@ export default function Demo() {
         </svg>
       ),
     },
+    {
+      name: "Search Patterns",
+      description: "Different search pattern implementations including command palette, global search, and more",
+      path: "/layouts/search",
+      icon: (
+        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      ),
+    },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero section */}
-      <div className="bg-white">
-        <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
-              Navigation Patterns
-            </h1>
-            <p className="mt-4 max-w-3xl mx-auto text-xl text-gray-500">
-              Explore different navigation layout patterns for your web applications.
-              Click on any pattern to see it in action.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Layout grid */}
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {layouts.map((layout) => (
-            <Link
-              key={layout.name}
-              to={layout.path}
-              className="relative group bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
-              <div className="flex items-center space-x-4">
-                <div className="flex-shrink-0 h-12 w-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                  {layout.icon}
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
-                    {layout.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {layout.description}
-                  </p>
-                </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">UI Pattern Library</h1>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Search Patterns */}
+          <Link to="/patterns/search" className="group">
+            <div className="bg-white rounded-lg shadow p-6 transform transition-all duration-200 hover:shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-gray-900">Search Patterns</h2>
+                <svg
+                  className="w-6 h-6 text-gray-400 group-hover:text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </div>
-              <div className="absolute inset-0 rounded-lg ring-1 ring-black ring-opacity-5" aria-hidden="true" />
-            </Link>
-          ))}
-        </div>
-      </div>
+              <p className="text-gray-500">
+                Explore different search patterns including command palette, predictive search, and advanced filtering.
+              </p>
+            </div>
+          </Link>
 
-      {/* Features section */}
-      <div className="bg-white mt-12">
-        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900">
-              Why Different Navigation Patterns?
-            </h2>
-            <p className="mt-4 text-lg text-gray-500">
-              Different navigation patterns serve different purposes and user needs.
-              Choose the right pattern based on your application's complexity,
-              content hierarchy, and target devices.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-900">User Experience</h3>
-              <p className="mt-2 text-base text-gray-500">
-                The right navigation pattern can significantly improve user experience
-                by making content discovery intuitive and efficient.
+          {/* Navigation Patterns */}
+          <Link to="/patterns/navigation" className="group">
+            <div className="bg-white rounded-lg shadow p-6 transform transition-all duration-200 hover:shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-gray-900">Navigation Patterns</h2>
+                <svg
+                  className="w-6 h-6 text-gray-400 group-hover:text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+              <p className="text-gray-500">
+                View various navigation patterns including sidebar, top navigation, and mobile-friendly options.
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-900">Responsiveness</h3>
-              <p className="mt-2 text-base text-gray-500">
-                Different patterns work better on different devices. Mobile-first
-                patterns ensure a great experience across all screen sizes.
+          </Link>
+
+          {/* Layout Patterns */}
+          <Link to="/patterns/layout" className="group">
+            <div className="bg-white rounded-lg shadow p-6 transform transition-all duration-200 hover:shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-gray-900">Layout Patterns</h2>
+                <svg
+                  className="w-6 h-6 text-gray-400 group-hover:text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+              <p className="text-gray-500">
+                Discover different layout patterns for organizing content and navigation in your application.
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-900">Content Structure</h3>
-              <p className="mt-2 text-base text-gray-500">
-                Match your navigation pattern to your content hierarchy for the most
-                natural and efficient user flow.
-              </p>
-            </div>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

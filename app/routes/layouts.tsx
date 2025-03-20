@@ -1,25 +1,13 @@
-import { Outlet, useLocation } from "@remix-run/react";
-import { createContext, useEffect, useState } from "react";
+import { Outlet } from "@remix-run/react";
+import type { MetaFunction } from "@remix-run/node";
 
-export const NavigationContext = createContext<{
-  currentSection: string;
-}>({
-  currentSection: "dashboard",
-});
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Layouts" },
+    { name: "description", content: "Different navigation layout patterns" },
+  ];
+};
 
-export default function LayoutsRoot() {
-  const location = useLocation();
-  const [currentSection, setCurrentSection] = useState(location.hash.replace("#", "") || "dashboard");
-
-  useEffect(() => {
-    // Update section when hash changes
-    const newSection = location.hash.replace("#", "") || "dashboard";
-    setCurrentSection(newSection);
-  }, [location.hash]);
-
-  return (
-    <NavigationContext.Provider value={{ currentSection }}>
-      <Outlet />
-    </NavigationContext.Provider>
-  );
+export default function Layouts() {
+  return <Outlet />;
 } 

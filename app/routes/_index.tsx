@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async () => {
-  return redirect("/demo");
+  return redirect("/patterns");
 };
 
 export default function Index() {

@@ -43,7 +43,7 @@ import { Link } from '@remix-run/react';
         ),
       },
       {
-        name: "Bottom Navigation",
+        name: "Bottom Navigation (Mobile)",
         description: "Mobile-first bottom navigation bar",
         path: "/layouts/bottom-nav",
         icon: (
@@ -53,7 +53,7 @@ import { Link } from '@remix-run/react';
         ),
       },
       {
-        name: "Hamburger Menu",
+        name: "Hamburger Menu (Mobile)",
         description: "Classic hamburger menu for mobile-responsive design",
         path: "/layouts/hamburger",
         icon: (

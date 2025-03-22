@@ -2,6 +2,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { useState, useEffect, useRef } from "react";
+import type { DetailedHTMLProps, HTMLAttributes, ButtonHTMLAttributes, LiHTMLAttributes } from "react";
 import Sales from "~/routes/sales";
 import Marketing from "~/routes/marketing";
 import Memberships from "~/routes/memberships";
@@ -11,16 +12,16 @@ import Reporting from "~/routes/reporting";
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      div: HTMLAttributes<HTMLDivElement>;
-      nav: HTMLAttributes<HTMLElement>;
-      button: HTMLAttributes<HTMLButtonElement>;
-      main: HTMLAttributes<HTMLElement>;
-      h1: HTMLAttributes<HTMLHeadingElement>;
-      h3: HTMLAttributes<HTMLHeadingElement>;
-      p: HTMLAttributes<HTMLParagraphElement>;
-      ul: HTMLAttributes<HTMLUListElement>;
-      li: HTMLAttributes<HTMLLIElement>;
-      strong: HTMLAttributes<HTMLElement>;
+      div: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+      nav: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+      button: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+      main: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+      h1: DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+      h3: DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+      p: DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
+      ul: DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+      li: DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
+      strong: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
     }
   }
 }
@@ -55,7 +56,7 @@ export default function MegaMenuLayout() {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       {/* Navigation bar */}
       <nav className="bg-gray-800 text-white relative">
         <div className="container mx-auto px-4">
@@ -187,6 +188,16 @@ export default function MegaMenuLayout() {
 
       {/* Main content */}
       <main className="container mx-auto p-8">
+        <Link 
+          to="/patterns/navigation" 
+          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6"
+        >
+          <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Navigation Patterns
+        </Link>
+
         {activeSection === 'sales' && <Sales />}
         {activeSection === 'marketing' && <Marketing />}
         {activeSection === 'memberships' && <Memberships />}

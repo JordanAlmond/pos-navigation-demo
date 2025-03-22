@@ -305,10 +305,10 @@ export default function SidebarLayout() {
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-xl font-bold">Demo App</h1>
             <Link 
-              to="/" 
+              to="/patterns/navigation" 
               className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
             >
-              Back to Demo
+              Back to Navs
             </Link>
           </div>
 

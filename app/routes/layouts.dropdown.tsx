@@ -17,7 +17,7 @@ type RecentActivity = {
   section: string;
   subsection?: string;
   timestamp: Date;
-};
+}; 
 
 type MenuItem = {
   id: string;
@@ -145,10 +145,10 @@ export default function DropdownNavLayout() {
             <h1 className="text-xl font-bold">Demo App</h1>
             <div className="flex items-center space-x-4">
               <Link 
-                to="/" 
+                to="/patterns/navigation" 
                 className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
               >
-                Back to Demo
+                Back to Navs
               </Link>
               <div className="flex items-center space-x-2">
                 <button

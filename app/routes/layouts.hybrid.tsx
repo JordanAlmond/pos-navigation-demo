@@ -74,11 +74,11 @@ export default function HybridLayout() {
         {/* Sidebar */}
         <aside className="w-64 bg-gray-800 text-white h-screen sticky top-0 overflow-y-auto">
           <div className="p-4">
-            <Link to="/demo" className="text-white hover:text-gray-300 mb-8 inline-flex items-center">
+            <Link to="/patterns/navigation" className="text-white hover:text-gray-300 mb-8 inline-flex items-center">
               <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              Back to Demo
+              Back to Navs
             </Link>
           </div>
           <nav className="p-4">
